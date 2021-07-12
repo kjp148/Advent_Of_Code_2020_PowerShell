@@ -24,3 +24,15 @@ Get-Content .\Input\day2.txt | ForEach-Object {
         $_.substring($_.IndexOf(': ') + 2)
     )
 }
+
+$GoodPasswords = 0
+foreach ($Instruction in $Instructions)
+{
+    $CharCount = [regex]::matches($Instruction.Password, $Instruction.Character).count
+    if (($CharCount -ge $Instruction.Min) -and ($CharCount -le $Instruction.Max))
+    {
+        $GoodPasswords++
+    }
+}
+
+Write-Host "Day 2 Part 1: $($GoodPasswords)"
