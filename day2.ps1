@@ -18,10 +18,10 @@ $Instructions = @()
 
 Get-Content .\Input\day2.txt | ForEach-Object {
     $Instructions += [Instruction]::new(
-        $_.substring(0, $_.IndexOf('-')),
-        $_.substring($_.IndexOf('-') + 1, $_.IndexOf(' ') - $_.IndexOf('-') - 1),
-        $_.substring($_.IndexOf(':') - 1, 1),
-        $_.substring($_.IndexOf(': ') + 2)
+        $_.Substring(0, $_.IndexOf('-')),
+        $_.Substring($_.IndexOf('-') + 1, $_.IndexOf(' ') - $_.IndexOf('-') - 1),
+        $_.Substring($_.IndexOf(':') - 1, 1),
+        $_.Substring($_.IndexOf(': ') + 2)
     )
 }
 
@@ -36,3 +36,14 @@ foreach ($Instruction in $Instructions)
 }
 
 Write-Host "Day 2 Part 1: $($GoodPasswords)"
+
+$GoodPasswords = 0
+foreach ($Instruction in $Instructions)
+{
+    if (($Instruction.Password.Substring($Instruction.Min - 1, 1) -eq $Instruction.Character) -xor ($Instruction.Password.Substring($Instruction.Max - 1, 1) -eq $Instruction.Character))
+    {
+        $GoodPasswords++
+    }
+}
+
+Write-Host "Day 2 Part 2: $($GoodPasswords)"
